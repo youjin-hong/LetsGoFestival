@@ -1,8 +1,23 @@
-# 축제7ㅏ자
+# 🎇전국의 축제들을 모아놓은 모바일 중심 웹사이트 축제7ㅏ자
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝프로젝트 소개
 
-Currently, two official plugins are available:
+### 화면구성
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 개발환경
+
+- front: React, tailwind-css, Zustand
+- 버전 및 이슈관리: Github, Github Issues
+- 디자인: Figma (TODO: 링크 넣기)
+
+## 프로젝트 구조
+
+TODO: 폴더 구조 정리
+
+## 개발 기간
+
+## 페이지별 기능
+
+## 개선 목표
+
+## 프로젝트 후기
