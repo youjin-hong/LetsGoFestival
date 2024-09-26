@@ -25,6 +25,7 @@ export default function Header() {
     getRegion();
   }, []);
 
+  // useRef로 헤더 슬라이드 구현
   const handleRegionNav = (e) => {
     e.preventDefault();
     const startX = e.pageX - scrollRef.current.offsetLeft;
