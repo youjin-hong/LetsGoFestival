@@ -1,0 +1,5 @@
+#root {
+  max-width: 640px;
+  width: calc(100% - 1rem);
+  margin: 0 auto;
+}

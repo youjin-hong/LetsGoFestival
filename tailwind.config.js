@@ -1,0 +1,33 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./src/**/*.{html,js,jsx}", "./public/index.html"],
+  theme: {
+    extend: {
+      colors: {
+        iconActive: "#FF5F00",
+        iconUnActive: "#D5D5D5",
+        bgLight: "#ffffff",
+        bgDark: "#212135",
+        beforeHover: "#636363",
+        afterHover: "#FF5F00",
+      },
+      spacing: {
+        headerH: "52px",
+        bottomBarH: "60px",
+        bottomBarIconW: "24px",
+        bottomBarIconH: "24px",
+        darkModeIconIconW: "20px",
+        darkModeIconIconH: "20px",
+        detailIconIconW: "20px",
+        detailIconIconH: "20px",
+        backIconIconW: "10px",
+        backIconIconH: "20px",
+      },
+      fontSize: {
+        "10px": "10px",
+      },
+    },
+  },
+  darkMode: "class", // 다크 모드 설정
+  plugins: [],
+};
