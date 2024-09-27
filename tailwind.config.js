@@ -11,18 +11,6 @@ export default {
         beforeHover: "#636363",
         afterHover: "#FF5F00",
       },
-      spacing: {
-        headerH: "52px",
-        bottomBarH: "60px",
-        bottomBarIconW: "24px",
-        bottomBarIconH: "24px",
-        darkModeIconIconW: "20px",
-        darkModeIconIconH: "20px",
-        detailIconIconW: "20px",
-        detailIconIconH: "20px",
-        backIconIconW: "10px",
-        backIconIconH: "20px",
-      },
       fontSize: {
         "10px": "10px",
       },
