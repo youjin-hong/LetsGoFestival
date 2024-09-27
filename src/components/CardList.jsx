@@ -27,7 +27,7 @@ export default function CardList() {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-evenly mt-6">
+    <div className="flex flex-wrap justify-evenly mt-32 mb-20">
       {cardList.map((card, index) => (
         <Card key={index} card={card} />
       ))}

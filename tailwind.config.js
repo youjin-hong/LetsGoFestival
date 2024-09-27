@@ -11,8 +11,8 @@ export default {
         beforeHover: "#636363",
         afterHover: "#FF5F00",
       },
-      fontSize: {
-        "10px": "10px",
+      boxShadow: {
+        topShadow: "0 -2px 10px 0 rgba(0, 0, 0, 0.2)",
       },
     },
   },
