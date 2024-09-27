@@ -39,7 +39,7 @@
 
 <br />
 
-## 개발환경
+## 👷개발환경
 
 - front: React, tailwind-css, Zustand
 - 버전 및 이슈관리: Github, Github Issues
