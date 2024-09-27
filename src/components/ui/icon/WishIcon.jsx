@@ -1,5 +1,4 @@
 export default function WishIcon({ handleWishIcon, clickWish }) {
-  // TODO: 상태에 따라 fill 색상 바꾸는 로직 필요 FF5F00
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

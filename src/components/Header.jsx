@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 
 import DarkModeIcon from "./ui/icon/DarkModeIcon";
 
+const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 export default function Header() {
   const location = useLocation();
   const [regionList, setRegionList] = useState([]);
@@ -16,7 +17,7 @@ export default function Header() {
           import.meta.env.VITE_APP_FESTIVAL_API_KEY
         }&numOfRows=30&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-      setRegionList(result.data.response.body.items.item);
+      setRegionList([allRegionOption, ...result.data.response.body.items.item]);
     } catch (e) {
       console.error("지역 목록 불러오기 실패", e);
     }
