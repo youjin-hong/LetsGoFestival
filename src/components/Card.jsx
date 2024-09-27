@@ -1,13 +1,19 @@
+import { useState } from "react";
 import FestivalState from "./ui/icon/FestivalState";
 import WishIcon from "./ui/icon/WishIcon";
 
 export default function Card({ card }) {
-  console.log("cardInfo", card);
+  const [clickWish, setClickWish] = useState(false);
+
+  const handleWishIcon = () => {
+    setClickWish(!clickWish);
+  };
+
   return (
     <div className=" w-[320px] relative pt-2 pb-5 cursor-pointer hover:scale-105 transition-transform duration-300">
       <div className="flex justify-between absolute w-full p-3">
         <FestivalState />
-        <WishIcon />
+        <WishIcon handleWishIcon={handleWishIcon} clickWish={clickWish} />
       </div>
       <div className="w-[315px] h-52">
         <img

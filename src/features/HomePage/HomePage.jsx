@@ -4,7 +4,7 @@ import CardList from "../../components/CardList";
 
 export default function HomePage() {
   return (
-    <div className="">
+    <div>
       <CardList />
     </div>
   );

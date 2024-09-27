@@ -1,3 +1,6 @@
+import CardList from "../../components/CardList";
+
 export default function WishListPage() {
-  return <>위시리스트</>;
+  // TODO: 찜버튼 클릭된 것들만 리스트 렌더링
+  return <CardList />;
 }
