@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import HomeIcon from "./ui/icon/HomeIcon";
-import SearchIcon from "./ui/icon/SearchIcon";
-import WishIcon from "./ui/icon/WishIcon";
+import { HomeIcon, SearchIcon, WishIcon } from "./ui/icon";
 
 export default function Footer() {
   return (

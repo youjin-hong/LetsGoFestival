@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
-import DarkModeIcon from "./ui/icon/DarkModeIcon";
+import { DarkModeIcon } from "./ui/icon";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 export default function Header() {
