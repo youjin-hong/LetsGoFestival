@@ -3,9 +3,9 @@ export default function CallIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.0"
-      width="24.000000pt"
-      height="24.000000pt"
-      viewBox="0 0 24.000000 24.000000"
+      width="19.64"
+      height="22"
+      viewBox="0 0 20 20"
       preserveAspectRatio="xMidYMid meet"
     >
       <g

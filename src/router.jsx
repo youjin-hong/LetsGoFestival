@@ -6,6 +6,7 @@ import CalendarPage from "./features/CalendarPage/CalendarPage";
 import DetailPage from "./features/DetailPage/DetailPage";
 import WishListPage from "./features/WishListPage/WishListPage";
 import NotFoundPage from "./features/NotFoundPage/NotFoundPage";
+import SearchResultPage from "./features/SearchPage/_components/SearchResultPage";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,8 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "search/:keyword", element: <SearchPage /> },
+      { path: "search", element: <SearchPage /> },
+      { path: "search/:keyword", element: <SearchResultPage /> },
       { path: "calendar", element: <CalendarPage /> },
       { path: "detail/:id", element: <DetailPage /> },
       { path: "wish", element: <WishListPage /> },

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
-import { DarkModeIcon } from "./ui/icon";
+import { CloseIcon, DarkModeIcon } from "./ui/icon";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 export default function Header() {
@@ -48,36 +48,47 @@ export default function Header() {
     window.addEventListener("mouseup", handleMouseUp);
   };
 
+  const handleDarkMode = () => {};
+
   return (
-    <header className="shadow-lg flex flex-col pt-6 fixed top-0 max-w-screen-sm z-50 bg-white w-full left-1/2 transform -translate-x-1/2">
-      <div className="flex justify-between mb-6">
-        <Link to="/" className="cursor-pointer mx-2">
-          <img
-            src="/logo.svg"
-            alt="축제7ㅏ자 로고"
-            className="w-full object-cover"
-          />
-        </Link>
-        <DarkModeIcon />
-      </div>
-      {location.pathname === "/" && (
-        <nav
-          ref={scrollRef}
-          className="flex overflow-hidden cursor-grab gap-9 font-bold pb-6 px-2"
-          onMouseDown={handleRegionNav}
-          style={{ scrollbarWidth: "none" }}
-        >
-          {regionList.map((region) => (
-            <Link
-              key={region.rnum}
-              to={`/region/${region.code}`}
-              className="cursor-pointer hover:text-iconActive flex-none w-26 text-center"
-            >
-              {region.name}
+    <>
+      {location.pathname === "/search" ||
+      location.pathname === "/search/:keyword" ? (
+        <header className="w-full mt-8 pr-4 max-w-screen-sm bg-white flex justify-end">
+          <CloseIcon />
+        </header>
+      ) : (
+        <header className="shadow-lg flex flex-col pt-6 pl-4 fixed top-0 max-w-screen-sm z-[999] bg-white w-full left-1/2 transform -translate-x-1/2">
+          <div className="flex justify-between mb-6">
+            <Link to="/" className="cursor-pointer mx-2">
+              <img
+                src="/logo.svg"
+                alt="축제7ㅏ자 로고"
+                className="w-full object-cover"
+              />
             </Link>
-          ))}
-        </nav>
+            <DarkModeIcon handleDarkMode={handleDarkMode} />
+          </div>
+          {location.pathname === "/" && (
+            <nav
+              ref={scrollRef}
+              className="flex overflow-hidden cursor-grab gap-9 font-bold pb-6 px-2"
+              onMouseDown={handleRegionNav}
+              style={{ scrollbarWidth: "none" }}
+            >
+              {regionList.map((region) => (
+                <Link
+                  key={region.rnum}
+                  to={`/region/${region.code}`}
+                  className="cursor-pointer hover:text-iconActive flex-none w-26 text-center"
+                >
+                  {region.name}
+                </Link>
+              ))}
+            </nav>
+          )}
+        </header>
       )}
-    </header>
+    </>
   );
 }

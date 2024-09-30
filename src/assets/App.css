@@ -3,3 +3,19 @@
   width: calc(100% - 1rem);
   margin: 0 auto;
 }
+
+/* global.css 또는 custom.css에 추가 */
+.react-calendar__navigation__label {
+  font-weight: bold; /* Bold 적용 */
+  font-size: 16px;
+}
+abbr {
+  font-size: 16px;
+  border-radius: 1rem;
+}
+.react-calendar__month-view__weekdays__weekday:nth-child(1) {
+  color: #ff5f00; /* 일요일만 빨간색 */
+}
+.react-calendar {
+  border: none !important;
+}
