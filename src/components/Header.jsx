@@ -1,35 +1,33 @@
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
+
+import { getRegion } from "../network/FestivalApi";
+import useThemeStore from "../store/darkModeStore";
+import useFestivalRegionStore from "../store/festivalRegionStore";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
-import festivalAxiosInstance from "../network/FestivalApi";
-import useThemeStore from "../store/darkModeStore";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 
 export default function Header() {
   const location = useLocation();
-  const [regionList, setRegionList] = useState([]);
   const scrollRef = useRef(null);
 
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
+  const { regionList, setRegionList } = useFestivalRegionStore();
 
-  const getRegion = async () => {
+  const fetchRegions = async () => {
     try {
-      const response = await festivalAxiosInstance.get(
-        `areaCode1?serviceKey=${
-          import.meta.env.VITE_APP_FESTIVAL_API_KEY
-        }&numOfRows=30&MobileOS=ETC&MobileApp=AppTest&_type=json`
-      );
-      setRegionList([allRegionOption, ...response.response.body.items.item]);
+      const regions = await getRegion();
+      setRegionList([allRegionOption, ...regions]);
     } catch (error) {
       console.error("지역 목록 불러오기 실패", error.message || error);
     }
   };
 
   useEffect(() => {
-    getRegion();
+    fetchRegions();
   }, [location.pathname]);
 
   useEffect(() => {

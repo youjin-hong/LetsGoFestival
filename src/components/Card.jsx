@@ -1,15 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FestivalState, WishIcon } from "./ui/icon";
 
 export default function Card({ card }) {
   const navigate = useNavigate();
-  const [clickWish, setClickWish] = useState(false);
-
-  const handleWishIcon = () => {
-    // e.stopPropagation();
-    setClickWish(!clickWish);
-  };
 
   const handleCard = () => {
     navigate(`/detail/${card.contentid}`, {
@@ -21,7 +14,7 @@ export default function Card({ card }) {
     <div className=" w-[315px] relative pt-2 pb-5 cursor-pointer">
       <div className="flex justify-between absolute w-full p-3">
         <FestivalState />
-        <WishIcon handleWishIcon={handleWishIcon} clickWish={clickWish} />
+        <WishIcon contentid={card.contentid} />
       </div>
       <div className="w-[315px] h-52" onClick={() => handleCard()}>
         <img

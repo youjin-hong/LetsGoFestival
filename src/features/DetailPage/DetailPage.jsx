@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   CafeIcon,
@@ -9,19 +9,42 @@ import {
   LocationIcon,
   WishIcon,
 } from "../../components/ui/icon";
+import { getFestivalOverView } from "../../network/FestivalApi";
+import useFestivalDetailPageStore from "../../store/festivalDetailPageStore";
 
 export default function DetailPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const card = location.state?.card; // state에서 받은 card 데이터 우선 사용
+  const setOverview = useFestivalDetailPageStore((state) => state.setOverview);
+  const overview = useFestivalDetailPageStore((state) => state.overview);
 
-  if (!card) {
-    return <div>카드 정보를 불러오는 중입니다...</div>;
-  }
+  const fetchFestivalOverview = async () => {
+    if (card) {
+      try {
+        const overviewData = await getFestivalOverView(card.contentid);
+        if (overviewData && overviewData.length > 0) {
+          setOverview(overviewData[0].overview);
+        }
+      } catch (e) {
+        console.error("축제정보 overview 데이터 불러오기 실패", e);
+        // 여기서 에러 상태를 관리할 수 있는 방법을 추가
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchFestivalOverview();
+    return () => setOverview(""); // 상세 페이지 나갈 때 상태 초기화
+  }, [card, setOverview]);
 
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  if (!card) {
+    return <div>카드 정보를 불러오는 중입니다...</div>;
+  }
 
   return (
     <div className="pt-24 pb-8 flex flex-col items-center">
@@ -62,12 +85,7 @@ export default function DetailPage() {
           </div>
         </div>
         <div className="w-[328px] pt-3">
-          <p className="text-sm cursor-default">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed
-            inventore reprehenderit, cupiditate unde quia eos perferendis est
-            nam corporis laboriosam voluptates id minima nihil eligendi nobis.
-            Provident mollitia at et.
-          </p>
+          <p className="text-sm cursor-default">{overview}</p>
         </div>
       </section>
       <section className="flex flex-col items-center w-[328px] pt-10">
@@ -84,7 +102,6 @@ export default function DetailPage() {
           </div>
         </div>
         <div className="w-full mb-24">
-          {/* TODO: 버튼에 따라 아이콘, 검색결과 다르게 */}
           <h2 className="font-bold text-start pb-3 cursor-default">
             주변 (카페) 검색 결과
           </h2>

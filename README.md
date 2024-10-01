@@ -1,8 +1,22 @@
-### 진행 단계
+## 진행 단계
 
-모든 페이지 퍼블리싱 완료했습니다.
-다크모드 구현, zustand 설치 후 api 연결 예정이니다.
+모든 페이지 퍼블리싱 완료
+<br />
 
+<h3>오늘 한 작업</h3>
+<ul>
+<li>zustand 설치</li>
+<li>localStorage 이용하여 tailwind 다크모드 구현 & 그에 따른 style 조정</li>
+<li>axios.create로 baseUrl 생성하여 한국관광공사 api header, detailPage, Home에 적용</li>
+<li>store 폴더 생성하여 useState로 관리하던 데이터 zustand로 상태 바꾸기</li>
+</ul>
+<h3>내일 할 일</h3>
+<ul>
+<li>모든 페이지에 api 불러오기</li>
+<li>zustand로 상태관리</li>
+<li>카드리스트 무한스크롤 적용하기</li>
+<li>header 부분 지역 선택하면 해당 지역에 대한 카드리스트 불러오기</li>
+</ul>
 <br />
 
 # 전국의 축제들을 모아놓은 모바일 중심 웹사이트 축제7ㅏ자 (Readme 업데이트 중...)
