@@ -33,7 +33,7 @@ export default function CalendarSearch() {
         prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
         minDetail="year" // 10년 단위 보기 숨기기
         locale="ko-KR"
-        className="w-full bg-white rounded-lg shadow-lg p-5 flex flex-col items-center gap-7 text-sm border-none"
+        className="w-full bg-white rounded-lg shadow-lg py-5 flex flex-col items-center gap-7 text-sm border-none dark:bg-bgDark"
       />
       <button className="absolute right-4 top-16 bg-iconActive text-white text-[12px] py-1 px-3 rounded-lg shadow-md hover:bg-orange-700 transition-colors">
         오늘

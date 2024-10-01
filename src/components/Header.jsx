@@ -3,12 +3,17 @@ import { useEffect, useState, useRef } from "react";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
 import festivalAxiosInstance from "../network/FestivalApi";
+import useThemeStore from "../store/darkModeStore";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
+
 export default function Header() {
   const location = useLocation();
   const [regionList, setRegionList] = useState([]);
   const scrollRef = useRef(null);
+
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
 
   const getRegion = async () => {
     try {
@@ -26,6 +31,14 @@ export default function Header() {
   useEffect(() => {
     getRegion();
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   // useRef로 헤더 슬라이드 구현
   const handleRegionNav = (e) => {
@@ -48,17 +61,15 @@ export default function Header() {
     window.addEventListener("mouseup", handleMouseUp);
   };
 
-  const handleDarkMode = () => {};
-
   return (
     <>
       {location.pathname === "/search" ||
       location.pathname === "/search/:keyword" ? (
-        <header className="w-full mt-8 pr-4 max-w-screen-sm bg-white flex justify-end">
+        <header className="w-full pt-8 pr-4 max-w-screen-sm bg-white dark:bg-bgDark flex justify-end">
           <CloseIcon />
         </header>
       ) : (
-        <header className="shadow-lg flex flex-col pt-6 pl-4 fixed top-0 max-w-screen-sm z-[999] bg-white w-full left-1/2 transform -translate-x-1/2">
+        <header className="shadow-lg flex flex-col pt-6 px-4 fixed top-0 max-w-screen-sm z-[999] bg-white dark:bg-bgDark text-black dark:text-white w-full left-1/2 transform -translate-x-1/2">
           <div className="flex justify-between mb-6">
             <Link to="/" className="cursor-pointer mx-2">
               <img
@@ -67,7 +78,7 @@ export default function Header() {
                 className="w-full object-cover"
               />
             </Link>
-            <DarkModeIcon handleDarkMode={handleDarkMode} />
+            <DarkModeIcon handleDarkMode={toggleDarkMode} />
           </div>
           {location.pathname === "/" && (
             <nav

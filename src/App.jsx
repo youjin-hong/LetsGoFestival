@@ -6,11 +6,11 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="dark:bg-bgDark dark:text-white min-h-[100vh]">
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 }
 

@@ -18,7 +18,7 @@ export default function Card({ card }) {
   };
 
   return (
-    <div className=" w-[320px] relative pt-2 pb-5 cursor-pointer">
+    <div className=" w-[315px] relative pt-2 pb-5 cursor-pointer">
       <div className="flex justify-between absolute w-full p-3">
         <FestivalState />
         <WishIcon handleWishIcon={handleWishIcon} clickWish={clickWish} />

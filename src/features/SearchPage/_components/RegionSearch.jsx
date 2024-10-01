@@ -1,7 +1,7 @@
 export default function RegionSearch() {
   return (
     <div className="w-full flex justify-center items-center relative rounded-lg p-4">
-      <ul className="shadow-bottomShadow rounded-lg flex flex-col justify-center items-center gap-1 w-full bg-white">
+      <ul className="shadow-bottomShadow rounded-lg flex flex-col justify-center items-center gap-1 w-full bg-white dark:text-black">
         {/* TODO: API 받아와서 map 돌려서 지역 리스트 나타내기 */}
         {/* https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=STzybg2jYMNbL3WNU0kR0UPYx1mqVZfBTTEdxYEnbArtuIxcNwZolBhQfCrv3wlxQ0R8oj57TtNvTxUYGOBpMA%3D%3D&numOfRows=17&MobileOS=ETC&MobileApp=AppTest&_type=json */}
         <li className="w-full text-center py-4 rounded-lg cursor-pointer hover:bg-[rgba(255,131,67,0.5)]">
