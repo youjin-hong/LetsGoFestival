@@ -1,8 +1,8 @@
-import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
+import festivalAxiosInstance from "../network/FestivalApi";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 export default function Header() {
@@ -12,14 +12,14 @@ export default function Header() {
 
   const getRegion = async () => {
     try {
-      const result = await axios.get(
-        `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${
+      const response = await festivalAxiosInstance.get(
+        `areaCode1?serviceKey=${
           import.meta.env.VITE_APP_FESTIVAL_API_KEY
         }&numOfRows=30&MobileOS=ETC&MobileApp=AppTest&_type=json`
       );
-      setRegionList([allRegionOption, ...result.data.response.body.items.item]);
-    } catch (e) {
-      console.error("지역 목록 불러오기 실패", e);
+      setRegionList([allRegionOption, ...response.response.body.items.item]);
+    } catch (error) {
+      console.error("지역 목록 불러오기 실패", error.message || error);
     }
   };
 
