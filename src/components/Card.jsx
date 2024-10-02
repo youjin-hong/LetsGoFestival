@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FestivalState, WishIcon } from "./ui/icon";
+import festivalNullImg from "../assets/images/festivalNullImg.png";
 
 export default function Card({ card }) {
   const navigate = useNavigate();
@@ -17,11 +18,19 @@ export default function Card({ card }) {
         <WishIcon contentid={card.contentid} />
       </div>
       <div className="w-[315px] h-52" onClick={() => handleCard()}>
-        <img
-          src={card.firstimage}
-          alt="축제이미지"
-          className="w-full h-full object-cover rounded-lg"
-        />
+        {card.firstimage !== "" ? (
+          <img
+            src={card.firstimage}
+            alt="축제이미지"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        ) : (
+          <img
+            src={festivalNullImg}
+            alt="축제이미지"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        )}
       </div>
       <div className="mt-3" onClick={() => handleCard()}>
         <p className="text-base font-bold mt-0.5">{card.title}</p>

@@ -5,17 +5,17 @@
 
 <h3>오늘 한 작업</h3>
 <ul>
-<li>zustand 설치</li>
-<li>localStorage 이용하여 tailwind 다크모드 구현 & 그에 따른 style 조정</li>
-<li>axios.create로 baseUrl 생성하여 한국관광공사 api header, detailPage, Home에 적용</li>
-<li>store 폴더 생성하여 useState로 관리하던 데이터 zustand로 상태 바꾸기</li>
+<li>카카오맵 api key 발급 & detailPage에 지도 불러오기</li>
+<li>한국 관광공사 api의 contentid와 카카오맵 api의 위도, 경도 정보 연결하여 해당 축제 위치 마커로 노출하기</li>
+<li>축제 상태(진행중, D-일수, 종료)를 3가지로 나타내기 위해서 "진행중인 행사", "개최 예정인 행사", "종료된 행사" 필터링이 필요할 것 같아 버튼 ui 추가하고 오늘 날짜로부터 api response 변수인 eventstartdate, eventenddate 계산하여 값 비교 후 상태 띄우기</li>
+<li>이미지가 null인 경우 로고 이미지로 대체</li>
+<li>글이 길어질 경우 detailPage가 상단부터 안보이고 중간부터 보이는 문제를 해결하기 위해 useEffect에 window.scrollTo(0,0) 적용</li>
 </ul>
 <h3>내일 할 일</h3>
 <ul>
-<li>모든 페이지에 api 불러오기 (완료)</li>
-<li>zustand로 상태관리</li>
+<li>헤더 지역 클릭하면 클릭한 지역 코드에 해당하는 카드 리스트만 렌더링</li>
+<li>찜한 카드 리스트들만 위시리스트 페이지로 보내기</li>
 <li>카드리스트 무한스크롤 적용하기</li>
-<li>header 부분 지역 선택하면 해당 지역에 대한 카드리스트 불러오기</li>
 </ul>
 <br />
 
