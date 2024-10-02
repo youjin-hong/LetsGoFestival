@@ -59,6 +59,11 @@ export default function Header() {
     window.addEventListener("mouseup", handleMouseUp);
   };
 
+  // 지역을 클릭했을 때 areaCode로 API 요청
+  const handleRegionClick = async () => {
+    //
+  };
+
   return (
     <>
       {location.pathname === "/search" ||
@@ -90,6 +95,7 @@ export default function Header() {
                   key={region.rnum}
                   to={`/region/${region.code}`}
                   className="cursor-pointer hover:text-iconActive flex-none w-26 text-center"
+                  onClick={() => handleRegionClick(region.areaCode)}
                 >
                   {region.name}
                 </Link>

@@ -48,7 +48,7 @@ export const getFestivalCards = async () => {
   const response = await festivalAxiosInstance.get(
     `searchFestival1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
-    }&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&eventStartDate=20170901`
+    }&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101`
   );
 
   return response.response.body.items.item;

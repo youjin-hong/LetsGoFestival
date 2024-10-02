@@ -13,7 +13,7 @@ export default function Card({ card }) {
   return (
     <div className=" w-[315px] relative pt-2 pb-5 cursor-pointer">
       <div className="flex justify-between absolute w-full p-3">
-        <FestivalState />
+        <FestivalState card={card} />
         <WishIcon contentid={card.contentid} />
       </div>
       <div className="w-[315px] h-52" onClick={() => handleCard()}>

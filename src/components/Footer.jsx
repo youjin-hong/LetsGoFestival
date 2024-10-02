@@ -9,7 +9,7 @@ export default function Footer() {
   const isSearchPage = location.pathname === "/search";
 
   return (
-    <footer className="fixed bottom-0 shadow-topShadow py-2 max-w-screen-sm z-50 bg-white w-full dark:bg-bgDark">
+    <footer className="fixed bottom-0 shadow-topShadow py-2 max-w-screen-sm z-[900] bg-white w-full dark:bg-bgDark">
       <nav className="flex justify-evenly">
         <Link
           to="/"

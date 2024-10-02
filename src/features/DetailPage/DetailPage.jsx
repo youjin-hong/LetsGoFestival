@@ -101,22 +101,26 @@ export default function DetailPage() {
           <h2 className="text-start font-bold pb-3 cursor-default">주변정보</h2>
           <div className="h-[253px] relative">
             <KakaoMapApi latitude={card.mapy} longitude={card.mapx} />
-            <button
-              onClick={handleRestaurantBtn}
-              className={`z-[100] absolute top-2 right-3 text-[12px] shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 ${
-                category === "restaurant" ? "bg-[#F7DE00]" : "bg-white"
-              }`}
-            >
-              음식점
-            </button>
-            <button
-              onClick={handleCafeBtn}
-              className={`z-[100] absolute top-11 right-3 text-[12px] bg-white shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 ${
-                category === "cafe" ? "bg-[#F7DE00]" : "bg-white"
-              }`}
-            >
-              카페
-            </button>
+            <ul>
+              <li
+                id="FD6"
+                onClick={handleRestaurantBtn}
+                className={`z-[100] absolute top-2 right-3 text-[12px] shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 flex justify-center items-center cursor-pointer ${
+                  category === "restaurant" ? "bg-[#F7DE00]" : "bg-white"
+                }`}
+              >
+                음식점
+              </li>
+              <li
+                id="CE7"
+                onClick={handleCafeBtn}
+                className={`z-[100] absolute top-11 right-3 text-[12px] bg-white shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 flex justify-center items-center cursor-pointer ${
+                  category === "cafe" ? "bg-[#F7DE00]" : "bg-white"
+                }`}
+              >
+                카페
+              </li>
+            </ul>
           </div>
         </div>
         <div className="w-full mb-24">
