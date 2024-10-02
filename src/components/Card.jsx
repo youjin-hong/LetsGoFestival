@@ -27,7 +27,7 @@ export default function Card({ card }) {
         ) : (
           <img
             src={festivalNullImg}
-            alt="축제이미지"
+            alt="firstimage없을 경우 대체 사진"
             className="w-full h-full object-cover rounded-lg"
           />
         )}
