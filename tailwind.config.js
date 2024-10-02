@@ -11,6 +11,7 @@ export default {
         beforeHover: "#636363",
         afterHover: "#FF5F00",
         prevBtn: "#B9B9B9",
+        subText: "#6D6D6D",
       },
       boxShadow: {
         topShadow: "0 -2px 10px 0 rgba(0, 0, 0, 0.2)",
