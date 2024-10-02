@@ -83,7 +83,7 @@ export default function CardList() {
           종료된 행사
         </li>
       </ul>
-      <div className="grid grid-cols-2 gap-2 justify-evenly pt-4 pb-20 w-full">
+      <div className="flex flex-wrap justify-evenly pt-4 pb-20 w-full">
         {filteredCards.map((card, index) => (
           <Card key={index} card={card} />
         ))}

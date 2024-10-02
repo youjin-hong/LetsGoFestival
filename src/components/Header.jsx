@@ -6,6 +6,7 @@ import useThemeStore from "../store/darkModeStore";
 import useFestivalRegionStore from "../store/festivalRegionStore";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
+import useFestivalCardStore from "../store/festivalCardStore";
 
 const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 
@@ -16,6 +17,7 @@ export default function Header() {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const { regionList, setRegionList } = useFestivalRegionStore();
+  const { setSelectedAreaCode } = useFestivalCardStore();
 
   const fetchRegions = async () => {
     try {
@@ -60,8 +62,12 @@ export default function Header() {
   };
 
   // 지역을 클릭했을 때 areaCode로 API 요청
-  const handleRegionClick = async () => {
-    //
+  const handleRegionClick = async (code) => {
+    // const regionItems = await fetchRegions();
+
+    console.log("region", code);
+    setSelectedAreaCode(code);
+    // header에서 쓰인 api의 지역 코드를 가져와서, cardlist에 쓰인 api 응답코드에 있는 areaCode랑 매핑시켜서 맞는 것들만 보여주기
   };
 
   return (
@@ -91,14 +97,13 @@ export default function Header() {
               style={{ scrollbarWidth: "none" }}
             >
               {regionList.map((region) => (
-                <Link
-                  key={region.rnum}
-                  to={`/region/${region.code}`}
+                <p
+                  key={region.code}
                   className="cursor-pointer hover:text-iconActive flex-none w-26 text-center"
-                  onClick={() => handleRegionClick(region.areaCode)}
+                  onClick={() => handleRegionClick(region.code)}
                 >
                   {region.name}
-                </Link>
+                </p>
               ))}
             </nav>
           )}
