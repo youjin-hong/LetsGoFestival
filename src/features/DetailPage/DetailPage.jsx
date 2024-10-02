@@ -42,6 +42,7 @@ export default function DetailPage() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchFestivalOverview();
     return () => setOverview("");
   }, [card, setOverview]);
