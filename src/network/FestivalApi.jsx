@@ -38,7 +38,7 @@ export const getRegion = async () => {
   const response = await festivalAxiosInstance.get(
     `areaCode1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
-    }&numOfRows=30&MobileOS=ETC&MobileApp=AppTest&_type=json`
+    }&numOfRows=16&MobileOS=ETC&MobileApp=AppTest&_type=json`
   );
   return response.response.body.items.item;
 };
@@ -48,7 +48,7 @@ export const getFestivalCards = async () => {
   const response = await festivalAxiosInstance.get(
     `searchFestival1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
-    }&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101`
+    }&numOfRows=16&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101`
   );
 
   return response.response.body.items.item;

@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
+
+import { useFestivalWishStore } from "../store/festivalWishStore";
+
 import { FestivalState, WishIcon } from "./ui/icon";
 import festivalNullImg from "../assets/images/festivalNullImg.png";
 
 export default function Card({ card }) {
   const navigate = useNavigate();
+
+  const { wishList, toggleWish } = useFestivalWishStore();
 
   const handleCard = () => {
     navigate(`/detail/${card.contentid}`, {
@@ -15,7 +20,10 @@ export default function Card({ card }) {
     <div className=" w-[315px] relative pt-2 pb-5 cursor-pointer">
       <div className="flex justify-between absolute w-full p-3">
         <FestivalState card={card} />
-        <WishIcon contentid={card.contentid} />
+        <WishIcon
+          isWished={wishList[card.contentid]}
+          toggleWish={() => toggleWish(card.contentid)}
+        />
       </div>
       <div className="w-[315px] h-52" onClick={() => handleCard()}>
         {card.firstimage !== "" ? (

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const useFestivalWishStore = create((set) => ({
+export const useFestivalWishStore = create((set) => ({
   wishList: {},
   toggleWish: (contentid) =>
     set((state) => ({
@@ -10,5 +10,3 @@ const useFestivalWishStore = create((set) => ({
       },
     })),
 }));
-
-export default useFestivalWishStore;
