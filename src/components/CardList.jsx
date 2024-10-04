@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { getFestivalCards } from "../network/FestivalApi";
 import useFestivalCardStore from "../store/festivalCardStore";
 import Card from "./Card";
+// import useFestivalRegionStore from "../store/festivalRegionStore";
 
 export default function CardList() {
   // TODO: 무한스크롤 구현
   const { festivalCards, setFestivalCards, selectedAreaCode } =
     useFestivalCardStore();
+  // const { regionList, selectedRegion, setRegionList, setSelectedRegion } =
+  //   useFestivalRegionStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
 

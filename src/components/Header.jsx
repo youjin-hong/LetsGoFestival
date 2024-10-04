@@ -8,7 +8,7 @@ import useFestivalRegionStore from "../store/festivalRegionStore";
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
 import useFestivalCardStore from "../store/festivalCardStore";
 
-const allRegionOption = { name: "전체", code: "all", rnum: 0 };
+// const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 
 export default function Header() {
   const location = useLocation();
@@ -23,7 +23,7 @@ export default function Header() {
   const fetchRegions = async () => {
     try {
       const regions = await getRegion();
-      setRegionList([allRegionOption, ...regions]);
+      setRegionList(regions);
     } catch (error) {
       console.error("지역 목록 불러오기 실패", error.message || error);
     }
@@ -95,9 +95,9 @@ export default function Header() {
               onMouseDown={handleRegionNav}
               style={{ scrollbarWidth: "none" }}
             >
-              {regionList.map((region) => (
+              {regionList.map((region, index) => (
                 <p
-                  key={region.code}
+                  key={index}
                   className={`cursor-pointer flex-none w-26 text-center ${
                     selectedRegion === region.code ? "text-iconActive" : ""
                   }`}
