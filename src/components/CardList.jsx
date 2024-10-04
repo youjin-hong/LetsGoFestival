@@ -5,13 +5,14 @@ import Card from "./Card";
 
 export default function CardList() {
   // TODO: 무한스크롤 구현
-  const { festivalCards, setFestivalCards } = useFestivalCardStore();
+  const { festivalCards, setFestivalCards, selectedAreaCode } =
+    useFestivalCardStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
 
-  const fetchFestivalCards = async () => {
+  const fetchFestivalCards = async (areaCode) => {
     try {
-      const cards = await getFestivalCards();
+      const cards = await getFestivalCards(areaCode);
       setFestivalCards(cards);
       setFilteredCards(cards);
     } catch (e) {
@@ -22,6 +23,12 @@ export default function CardList() {
   const filterCards = () => {
     const today = new Date();
     const todayString = today.toISOString().slice(0, 10).replace(/-/g, "");
+
+    // festivalCards가 배열인지 확인
+    if (!Array.isArray(festivalCards)) {
+      setFilteredCards([]);
+      return;
+    }
 
     const filtered = festivalCards.filter((card) => {
       if (selectFestivalStatus === "진행중") {
@@ -42,8 +49,10 @@ export default function CardList() {
   };
 
   useEffect(() => {
-    fetchFestivalCards();
-  }, []);
+    if (selectedAreaCode) {
+      fetchFestivalCards(selectedAreaCode);
+    }
+  }, [selectedAreaCode]);
 
   useEffect(() => {
     filterCards();

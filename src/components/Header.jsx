@@ -63,11 +63,8 @@ export default function Header() {
 
   // 지역을 클릭했을 때 areaCode로 API 요청
   const handleRegionClick = async (code) => {
-    // const regionItems = await fetchRegions();
-
-    console.log("region", code);
+    // console.log("region", code);
     setSelectedAreaCode(code);
-    // header에서 쓰인 api의 지역 코드를 가져와서, cardlist에 쓰인 api 응답코드에 있는 areaCode랑 매핑시켜서 맞는 것들만 보여주기
   };
 
   return (
