@@ -16,7 +16,8 @@ export default function Header() {
 
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
-  const { regionList, setRegionList } = useFestivalRegionStore();
+  const { regionList, setRegionList, selectedRegion, setSelectedRegion } =
+    useFestivalRegionStore();
   const { setSelectedAreaCode } = useFestivalCardStore();
 
   const fetchRegions = async () => {
@@ -65,6 +66,7 @@ export default function Header() {
   const handleRegionClick = async (code) => {
     // console.log("region", code);
     setSelectedAreaCode(code);
+    setSelectedRegion(code);
   };
 
   return (
@@ -96,7 +98,9 @@ export default function Header() {
               {regionList.map((region) => (
                 <p
                   key={region.code}
-                  className="cursor-pointer hover:text-iconActive flex-none w-26 text-center"
+                  className={`cursor-pointer flex-none w-26 text-center ${
+                    selectedRegion === region.code ? "text-iconActive" : ""
+                  }`}
                   onClick={() => handleRegionClick(region.code)}
                 >
                   {region.name}

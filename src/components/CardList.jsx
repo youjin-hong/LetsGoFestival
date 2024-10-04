@@ -13,6 +13,8 @@ export default function CardList() {
   const fetchFestivalCards = async (areaCode) => {
     try {
       const cards = await getFestivalCards(areaCode);
+      console.log(cards);
+
       setFestivalCards(cards);
       setFilteredCards(cards);
     } catch (e) {
