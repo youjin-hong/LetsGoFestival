@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { getFestivalCards } from "../network/FestivalApi";
 import useFestivalCardStore from "../store/festivalCardStore";
+import useFestivalRegionStore from "../store/festivalRegionStore";
 import Card from "./Card";
-// import useFestivalRegionStore from "../store/festivalRegionStore";
+import { useFestivalWishStore } from "../store/festivalWishStore";
 
-export default function CardList() {
+export default function CardList({ clickWishIcon = false }) {
   // TODO: 무한스크롤 구현
-  const { festivalCards, setFestivalCards, selectedAreaCode } =
-    useFestivalCardStore();
-  // const { regionList, selectedRegion, setRegionList, setSelectedRegion } =
-  //   useFestivalRegionStore();
+  const { festivalCards, setFestivalCards } = useFestivalCardStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
+  const { selectedRegion } = useFestivalRegionStore();
+  const { wishList } = useFestivalWishStore();
 
   const fetchFestivalCards = async (areaCode) => {
     try {
-      const cards = await getFestivalCards(areaCode);
-      console.log(cards);
+      const cards =
+        areaCode === "all"
+          ? await getFestivalCards("")
+          : await getFestivalCards(areaCode);
 
       setFestivalCards(cards);
       setFilteredCards(cards);
@@ -35,7 +37,7 @@ export default function CardList() {
       return;
     }
 
-    const filtered = festivalCards.filter((card) => {
+    let filtered = festivalCards.filter((card) => {
       if (selectFestivalStatus === "진행중") {
         return (
           card.eventstartdate <= todayString && todayString <= card.eventenddate
@@ -50,18 +52,22 @@ export default function CardList() {
       return true; // 기본적으로 모든 카드를 반환
     });
 
+    if (clickWishIcon) {
+      filtered = filtered.filter((card) => wishList[card.contentid]);
+    }
+
     setFilteredCards(filtered);
   };
 
   useEffect(() => {
-    if (selectedAreaCode) {
-      fetchFestivalCards(selectedAreaCode);
+    if (selectedRegion) {
+      fetchFestivalCards(selectedRegion);
     }
-  }, [selectedAreaCode]);
+  }, [selectedRegion]);
 
   useEffect(() => {
     filterCards();
-  }, [festivalCards, selectFestivalStatus]);
+  }, [festivalCards, selectFestivalStatus, wishList]);
 
   return (
     <>

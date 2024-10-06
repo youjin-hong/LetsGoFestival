@@ -5,17 +5,20 @@
 
 <h3>오늘 한 작업</h3>
 <ul>
-<li>카카오맵 api key 발급 & detailPage에 지도 불러오기</li>
-<li>한국 관광공사 api의 contentid와 카카오맵 api의 위도, 경도 정보 연결하여 해당 축제 위치 마커로 노출하기</li>
-<li>축제 상태(진행중, D-일수, 종료)를 3가지로 나타내기 위해서 "진행중인 행사", "개최 예정인 행사", "종료된 행사" 필터링이 필요할 것 같아 버튼 ui 추가하고 오늘 날짜로부터 api response 변수인 eventstartdate, eventenddate 계산하여 값 비교 후 상태 띄우기</li>
-<li>이미지가 null인 경우 로고 이미지로 대체</li>
-<li>글이 길어질 경우 detailPage가 상단부터 안보이고 중간부터 보이는 문제를 해결하기 위해 useEffect에 window.scrollTo(0,0) 적용</li>
+<li>WishIcon 컴포넌트에 props 전달 올바르게 수정하여 기능이 제대로 동작하도록 함</li>
+<li>Header에 있는 "전체" 버튼을 클릭했을 때 undefined가 뜨며 에러가 발생하는 부분을 해결하고, 처음 접속했을 때 "전체" 버튼이 클릭된 상태이며, 전국의 축제 데이터가 뜨게 함
+-> 전달받은 상태의 변수 areaCode가 "all"일 때 set 함수가 빈 문자열이도록 함</li>
+<li>WishListPage에 찜한 축제 카드들만 렌더링하기 위해 CardList.jsx에 props로 clickWishIcon: false로 주고, WishListPage에 clickWishIcon: true로 줌</li>
+<li>또한 cardList.jsx의 filter 함수에서 filter 메서드를 이용해 store에서 관리하고 있는 wishList에 클릭한 card.contentid를 넘겨줌</li>
+<li>찜 목록에서 찜 아이콘을 토글하여 찜해제를 할 경우, 페이지에서 바로 사라질 수 있도록 useEffect의 의존성배열에 wishList 넣어줌</li>
 </ul>
 <h3>내일 할 일</h3>
 <ul>
-<li>헤더 지역 클릭하면 클릭한 지역 코드에 해당하는 카드 리스트만 렌더링</li>
-<li>찜한 카드 리스트들만 위시리스트 페이지로 보내기</li>
+<li>detailPage에서 "주변" 둘러보기 컴포넌트 작업</li>
+<li>축제 검색 페이지</li>
 <li>카드리스트 무한스크롤 적용하기</li>
+<li>zustand 상태관리 정리</li>
+<li>vercel 배포</li>
 </ul>
 <br />
 

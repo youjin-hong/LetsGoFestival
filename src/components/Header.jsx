@@ -6,9 +6,6 @@ import useThemeStore from "../store/darkModeStore";
 import useFestivalRegionStore from "../store/festivalRegionStore";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
-import useFestivalCardStore from "../store/festivalCardStore";
-
-// const allRegionOption = { name: "전체", code: "all", rnum: 0 };
 
 export default function Header() {
   const location = useLocation();
@@ -18,7 +15,6 @@ export default function Header() {
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const { regionList, setRegionList, selectedRegion, setSelectedRegion } =
     useFestivalRegionStore();
-  const { setSelectedAreaCode } = useFestivalCardStore();
 
   const fetchRegions = async () => {
     try {
@@ -64,8 +60,6 @@ export default function Header() {
 
   // 지역을 클릭했을 때 areaCode로 API 요청
   const handleRegionClick = async (code) => {
-    // console.log("region", code);
-    setSelectedAreaCode(code);
     setSelectedRegion(code);
   };
 
