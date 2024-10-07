@@ -1,4 +1,4 @@
-export default function MoveTopIcon() {
+export default function MoveTopIcon({ scrollTop }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +6,8 @@ export default function MoveTopIcon() {
       height="40"
       viewBox="0 0 40 40"
       fill="none"
+      className="absolute bottom-16 right-0 cursor-pointer"
+      onClick={scrollTop}
     >
       <circle cx="20" cy="20" r="20" fill="#FF8343" />
       <path
