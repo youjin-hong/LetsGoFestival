@@ -5,8 +5,11 @@ import useFestivalRegionStore from "../store/festivalRegionStore";
 import Card from "./Card";
 import { useFestivalWishStore } from "../store/festivalWishStore";
 
-export default function CardList({ clickWishIcon = false }) {
-  // TODO: 무한스크롤 구현
+export default function CardList({
+  clickWishIcon = false,
+  dateRange,
+  isSearchPage,
+}) {
   const { festivalCards, setFestivalCards } = useFestivalCardStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
@@ -31,23 +34,40 @@ export default function CardList({ clickWishIcon = false }) {
     const today = new Date();
     const todayString = today.toISOString().slice(0, 10).replace(/-/g, "");
 
-    // festivalCards가 배열인지 확인
     if (!Array.isArray(festivalCards)) {
       setFilteredCards([]);
       return;
     }
 
     let filtered = festivalCards.filter((card) => {
-      if (selectFestivalStatus === "진행중") {
+      const eventStartDate = card.eventstartdate;
+      const eventEndDate = card.eventenddate;
+
+      if (dateRange) {
+        const startDate = dateRange[0]
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, "");
+        const endDate = dateRange[1]
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, "");
+
         return (
-          card.eventstartdate <= todayString && todayString <= card.eventenddate
+          (eventStartDate >= startDate && eventStartDate <= endDate) ||
+          (eventEndDate >= startDate && eventEndDate <= endDate) ||
+          (eventStartDate <= startDate && eventEndDate >= endDate)
         );
       }
+
+      if (selectFestivalStatus === "진행중") {
+        return eventStartDate <= todayString && todayString <= eventEndDate;
+      }
       if (selectFestivalStatus === "예정") {
-        return todayString < card.eventstartdate;
+        return todayString < eventStartDate;
       }
       if (selectFestivalStatus === "종료") {
-        return todayString > card.eventenddate;
+        return todayString > eventEndDate;
       }
       return true; // 기본적으로 모든 카드를 반환
     });
@@ -67,42 +87,44 @@ export default function CardList({ clickWishIcon = false }) {
 
   useEffect(() => {
     filterCards();
-  }, [festivalCards, selectFestivalStatus, wishList]);
+  }, [festivalCards, selectFestivalStatus, wishList, dateRange]);
 
   return (
     <>
-      <ul className="flex justify-end gap-2 pt-36">
-        <li
-          onClick={() => setSelectFestivalStatus("진행중")}
-          className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
-            selectFestivalStatus === "진행중"
-              ? "bg-iconActive"
-              : "bg-[#fdaa7b] hover:bg-iconActive"
-          } duration-200`}
-        >
-          진행중인 행사
-        </li>
-        <li
-          onClick={() => setSelectFestivalStatus("예정")}
-          className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
-            selectFestivalStatus === "예정"
-              ? "bg-[#007BFF]"
-              : "bg-[#76b5f8] hover:bg-[#007BFF]"
-          } duration-200`}
-        >
-          개최 예정인 행사
-        </li>
-        <li
-          onClick={() => setSelectFestivalStatus("종료")}
-          className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
-            selectFestivalStatus === "종료"
-              ? "bg-subText"
-              : "bg-[#b6b6b6] hover:bg-subText"
-          } duration-200`}
-        >
-          종료된 행사
-        </li>
-      </ul>
+      {!isSearchPage && (
+        <ul className="flex justify-end gap-2 pt-36">
+          <li
+            onClick={() => setSelectFestivalStatus("진행중")}
+            className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
+              selectFestivalStatus === "진행중"
+                ? "bg-iconActive"
+                : "bg-[#fdaa7b] hover:bg-iconActive"
+            } duration-200`}
+          >
+            진행중인 행사
+          </li>
+          <li
+            onClick={() => setSelectFestivalStatus("예정")}
+            className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
+              selectFestivalStatus === "예정"
+                ? "bg-[#007BFF]"
+                : "bg-[#76b5f8] hover:bg-[#007BFF]"
+            } duration-200`}
+          >
+            개최 예정인 행사
+          </li>
+          <li
+            onClick={() => setSelectFestivalStatus("종료")}
+            className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
+              selectFestivalStatus === "종료"
+                ? "bg-subText"
+                : "bg-[#b6b6b6] hover:bg-subText"
+            } duration-200`}
+          >
+            종료된 행사
+          </li>
+        </ul>
+      )}
       <div className="flex flex-wrap justify-evenly pt-4 pb-20 w-full">
         {filteredCards.map((card, index) => (
           <Card key={index} card={card} />

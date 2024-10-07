@@ -1,19 +1,25 @@
 import moment from "moment";
-import { useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; // 캘린더 기본 스타일 불러오기
+import "react-calendar/dist/Calendar.css";
+import useFestivalSearchStore from "../../../store/festivalSearchStore";
+import { useEffect } from "react";
 
-export default function CalendarSearch() {
+export default function CalendarSearch({ onSelect }) {
   const today = new Date();
-  const [dateRange, setDateRange] = useState([today, today]); // 시작일과 종료일
+  const { dateRange, setDateRange } = useFestivalSearchStore();
+
+  useEffect(() => {
+    setDateRange(dateRange);
+  }, [setDateRange, dateRange]);
 
   const handleDateChange = (date) => {
     if (date.length === 0) {
       setDateRange([today, today]); // 초기화
     } else if (date.length === 1) {
-      setDateRange([date[0], date[0]]); // 시작일 설정
+      setDateRange([date[0], date[0]]); // 시작일 선택
     } else {
-      setDateRange([date[0], date[1]]); // 종료일 설정
+      setDateRange([date[0], date[1]]); // 종료일 선택
+      onSelect && onSelect([date[0], date[1]]); // 종료일까지 선택되었을 때 onSelect 호출 & 저장
     }
   };
 

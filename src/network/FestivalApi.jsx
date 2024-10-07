@@ -38,7 +38,7 @@ export const getRegion = async () => {
   const response = await festivalAxiosInstance.get(
     `areaCode1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
-    }&numOfRows=16&MobileOS=ETC&MobileApp=AppTest&_type=json`
+    }&numOfRows=17&MobileOS=ETC&MobileApp=AppTest&_type=json`
   );
   return response.response.body.items.item;
 };
@@ -60,6 +60,18 @@ export const getFestivalOverView = async (contentId) => {
     `detailCommon1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
     }&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=${contentId}&contentTypeId=15&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`
+  );
+  return response.response.body.items.item;
+};
+
+// 검색 페이지 키워드 검색 결과 정보 불러오기
+export const getKeywordSearchResults = async (keyword) => {
+  const response = await festivalAxiosInstance.get(
+    `searchKeyword1?serviceKey=${
+      import.meta.env.VITE_APP_FESTIVAL_API_KEY
+    }&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword=${encodeURIComponent(
+      keyword
+    )}&contentTypeId=15`
   );
   return response.response.body.items.item;
 };

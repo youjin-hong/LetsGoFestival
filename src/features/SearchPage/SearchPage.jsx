@@ -7,17 +7,28 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import useFestivalSearchStore from "../../store/festivalSearchStore";
+import useFestivalRegionStore from "../../store/festivalRegionStore";
 
 const steps = ["날짜", "지역", "키워드"];
 
 const SearchPage = () => {
+  const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedRegion, setSelectedRegion] = useState("");
-  const [keyword, setKeyword] = useState("");
+  const {
+    dateRange,
+    setDateRange,
+    keyword,
+    setKeyword,
+    getFormattedDateRange,
+  } = useFestivalSearchStore();
+
+  const { setSelectedRegion, selectedRegion, regionList } =
+    useFestivalRegionStore();
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -40,15 +51,19 @@ const SearchPage = () => {
     });
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setSelectedDate(null);
-    setSelectedRegion("");
-    setKeyword("");
-  };
-
   const handleSubmit = () => {
-    console.log("검색하기:", { selectedDate, selectedRegion, keyword });
+    const finalKeyword = keyword || "default";
+    navigate(`/search/${finalKeyword}`, {
+      state: { dateRange, selectedRegion, keyword },
+    });
+
+    console.log("검색하기:", {
+      dateRange,
+      selectedRegion,
+      regionList,
+      getFormattedDateRange,
+      keyword,
+    });
   };
 
   return (
@@ -96,7 +111,7 @@ const SearchPage = () => {
           <div className="flex flex-col pt-14 pb-[4.6rem]">
             <CalendarSearch
               onSelect={(date) => {
-                setSelectedDate(date);
+                setDateRange(date);
                 handleNext();
               }}
             />
@@ -139,9 +154,8 @@ const SearchPage = () => {
         {activeStep === 2 && (
           <div className="flex flex-col pt-12">
             <KeywordSearch
-              onChange={(value) => {
+              onSelect={(value) => {
                 setKeyword(value);
-                handleNext();
               }}
             />
             <div className="w-full m-auto flex justify-between pb-24 px-4">
@@ -158,15 +172,6 @@ const SearchPage = () => {
                 검색
               </button>
             </div>
-          </div>
-        )}
-
-        {activeStep === steps.length && (
-          <div>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              모든 단계가 완료되었습니다. 이제 검색을 시작하세요!
-            </Typography>
-            <button onClick={handleReset}>리셋</button>
           </div>
         )}
       </Box>
