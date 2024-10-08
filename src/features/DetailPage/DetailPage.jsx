@@ -12,6 +12,7 @@ import {
 import { getFestivalOverView } from "../../network/FestivalApi";
 import KakaoMapApi from "../../network/KakaoMapApi";
 import useFestivalDetailPageStore from "../../store/festivalDetailPageStore";
+import { useFestivalWishStore } from "../../store/festivalWishStore";
 
 export default function DetailPage() {
   const location = useLocation();
@@ -20,6 +21,7 @@ export default function DetailPage() {
   const setOverview = useFestivalDetailPageStore((state) => state.setOverview);
   const overview = useFestivalDetailPageStore((state) => state.overview);
   const { category, setCategory } = useFestivalDetailPageStore();
+  const { wishList, toggleWish } = useFestivalWishStore();
 
   const fetchFestivalOverview = async () => {
     if (card) {
@@ -40,7 +42,9 @@ export default function DetailPage() {
   const handleRestaurantBtn = () => {
     setCategory("restaurant");
   };
-
+  const handleWishIcon = () => {
+    toggleWish(card.contentid);
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchFestivalOverview();
@@ -66,8 +70,11 @@ export default function DetailPage() {
         <h2 hidden>축제상세정보</h2>
         <div className=" w-[350px] relative pt-2 pb-5 cursor-pointer">
           <div className="flex justify-between absolute w-full p-3">
-            <FestivalState />
-            <WishIcon />
+            <FestivalState card={card} />
+            <WishIcon
+              clickWish={wishList[card.contentid]}
+              handleWishIcon={handleWishIcon}
+            />
           </div>
           <img
             src={card.firstimage}
