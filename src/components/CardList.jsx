@@ -89,12 +89,20 @@ export default function CardList({
     filterCards();
   }, [festivalCards, selectFestivalStatus, wishList, dateRange]);
 
+  const handleFestivalStatus = (status) => {
+    if (selectFestivalStatus === status) {
+      setSelectFestivalStatus("");
+    } else {
+      setSelectFestivalStatus(status);
+    }
+  };
+
   return (
     <>
       {!isSearchPage && (
         <ul className="flex justify-end gap-2 pt-36">
           <li
-            onClick={() => setSelectFestivalStatus("진행중")}
+            onClick={() => handleFestivalStatus("진행중")}
             className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
               selectFestivalStatus === "진행중"
                 ? "bg-iconActive"
@@ -104,7 +112,7 @@ export default function CardList({
             진행중인 행사
           </li>
           <li
-            onClick={() => setSelectFestivalStatus("예정")}
+            onClick={() => handleFestivalStatus("예정")}
             className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
               selectFestivalStatus === "예정"
                 ? "bg-[#007BFF]"
@@ -114,7 +122,7 @@ export default function CardList({
             개최 예정인 행사
           </li>
           <li
-            onClick={() => setSelectFestivalStatus("종료")}
+            onClick={() => handleFestivalStatus("종료")}
             className={`cursor-pointer text-sm text-white rounded-md py-1 px-1.5 ${
               selectFestivalStatus === "종료"
                 ? "bg-subText"
