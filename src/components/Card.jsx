@@ -32,7 +32,7 @@ export default function Card({ card }) {
           handleWishIcon={handleWishIcon}
         />
       </div>
-      <div className="w-[315px] h-52" onClick={() => handleCard()}>
+      <div className="w-full h-56" onClick={() => handleCard()}>
         <img
           src={extractImageUrl(card.firstimage)}
           alt="축제이미지"

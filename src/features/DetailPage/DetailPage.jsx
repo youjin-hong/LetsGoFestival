@@ -76,11 +76,13 @@ export default function DetailPage() {
               handleWishIcon={handleWishIcon}
             />
           </div>
-          <img
-            src={card.firstimage}
-            alt="축제이미지"
-            className="w-full h-full object-cover rounded-lg cursor-default"
-          />
+          <div className="w-full h-56">
+            <img
+              src={card.firstimage}
+              alt="축제이미지"
+              className="w-full h-full object-cover rounded-lg cursor-default"
+            />
+          </div>
         </div>
         <div className="w-[350px] flex flex-col gap-1.5 cursor-default">
           <div className="flex gap-4 text-[15px]">
