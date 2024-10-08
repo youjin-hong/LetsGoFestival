@@ -22,7 +22,9 @@ export default function CalendarSearch({ onSelect }) {
       onSelect && onSelect([date[0], date[1]]); // 종료일까지 선택되었을 때 onSelect 호출 & 저장
     }
   };
-
+  const handleTodayBtn = () => {
+    setDateRange([today, today]);
+  };
   return (
     <div className="w-[350px] flex justify-center items-center left-[50%] -translate-x-2/4 relative rounded-bottomShadow">
       <Calendar
@@ -41,7 +43,10 @@ export default function CalendarSearch({ onSelect }) {
         locale="ko-KR"
         className="w-full bg-white rounded-lg shadow-lg py-5 flex flex-col items-center gap-7 text-sm border-none dark:bg-bgDark"
       />
-      <button className="absolute right-4 top-16 bg-iconActive text-white text-[12px] py-1 px-3 rounded-lg shadow-md hover:bg-orange-700 transition-colors">
+      <button
+        onClick={handleTodayBtn}
+        className="absolute right-4 top-16 cursor-pointer bg-iconActive text-white text-[12px] py-1 px-3 rounded-lg shadow-md hover:bg-orange-700 transition-colors"
+      >
         오늘
       </button>
     </div>

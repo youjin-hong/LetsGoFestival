@@ -15,8 +15,6 @@ const steps = ["날짜", "지역", "키워드"];
 
 const SearchPage = () => {
   const navigate = useNavigate();
-
-  const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
   const {
@@ -25,6 +23,8 @@ const SearchPage = () => {
     keyword,
     setKeyword,
     getFormattedDateRange,
+    activeStep,
+    setActiveStep,
   } = useFestivalSearchStore();
 
   const { setSelectedRegion, selectedRegion, regionList } =
@@ -35,15 +35,15 @@ const SearchPage = () => {
   };
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(activeStep - 1);
   };
 
   const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(activeStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
       newSkipped.add(activeStep);
@@ -54,16 +54,16 @@ const SearchPage = () => {
   const handleSubmit = () => {
     const finalKeyword = keyword || "default";
     navigate(`/search/${finalKeyword}`, {
-      state: { dateRange, selectedRegion, keyword },
+      state: { dateRange, selectedRegion, keyword, activeStep },
     });
 
-    console.log("검색하기:", {
-      dateRange,
-      selectedRegion,
-      regionList,
-      getFormattedDateRange,
-      keyword,
-    });
+    // console.log("검색하기:", {
+    //   dateRange,
+    //   selectedRegion,
+    //   regionList,
+    //   getFormattedDateRange,
+    //   keyword,
+    // });
   };
 
   return (

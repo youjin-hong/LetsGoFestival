@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
-const { kakao } = window;
-
 export default function KakaoMapApi({ latitude, longitude }) {
   useEffect(() => {
+    const { kakao } = window;
+    if (!kakao) return;
+
     const container = document.getElementById("map"); //지도를 담을 div
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표

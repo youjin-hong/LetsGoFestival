@@ -6,7 +6,6 @@ export default function RegionSearch({ onSelect }) {
 
   const handleSelectRegion = (regionCode) => {
     setSelectedRegion(regionCode);
-    console.log(regionCode);
 
     if (onSelect) {
       onSelect(regionCode);
