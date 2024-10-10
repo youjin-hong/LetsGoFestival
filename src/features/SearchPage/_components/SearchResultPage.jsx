@@ -9,6 +9,11 @@ import useFestivalRegionStore from "../../../store/festivalRegionStore";
 import useFestivalSearchStore from "../../../store/festivalSearchStore";
 
 const formatDate = (date) => {
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    console.error("Invalid date object:", date);
+    return "Date not set";
+  }
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -18,9 +23,17 @@ const formatDate = (date) => {
 export default function SearchResultPage() {
   const navigate = useNavigate();
 
-  const { dateRange, selectedRegion, keyword } = useFestivalSearchStore();
-  const { setActiveStep, setDateRange, setKeyword } = useFestivalSearchStore();
-  const { setSelectedRegion, regionList } = useFestivalRegionStore();
+  const {
+    dateRange,
+    setActiveStep,
+    setDateRange,
+    keywordResult,
+    setKeywordResult,
+    inputKeyword,
+    setInputKeyword,
+  } = useFestivalSearchStore();
+  const { selectedRegion, setSelectedRegion, regionList } =
+    useFestivalRegionStore();
 
   const selectedRegionData = regionList.find(
     (region) => region.code === selectedRegion
@@ -28,10 +41,10 @@ export default function SearchResultPage() {
   const selectedRegionName = selectedRegionData
     ? selectedRegionData.name
     : "지역 선택";
-
-  const formattedDateRange = dateRange
-    ? `${formatDate(dateRange[0])} ~ ${formatDate(dateRange[1])}`
-    : "날짜 선택";
+  const formattedDateRange =
+    dateRange && Array.isArray(dateRange) && dateRange.length === 2
+      ? `${formatDate(dateRange[0])} ~ ${formatDate(dateRange[1])}`
+      : "날짜 선택";
 
   const backToCalender = () => {
     setActiveStep(0);
@@ -51,7 +64,8 @@ export default function SearchResultPage() {
   const resetSearch = () => {
     setActiveStep(0);
     setDateRange([new Date(), new Date()]);
-    setKeyword("");
+    setInputKeyword("");
+    setKeywordResult([]);
     setSelectedRegion("all");
     navigate("/search");
   };
@@ -76,14 +90,19 @@ export default function SearchResultPage() {
       </div>
       <div className="shadow-bottomShadow rounded-md flex justify-between items-center px-3 py-3 cursor-pointer z-[900]">
         <p onClick={backToKeyword} className="text-beforeHover flex-1">
-          {keyword || "키워드 선택"}
+          {inputKeyword || "키워드 선택"}
         </p>
         <div onClick={resetSearch}>
           <CloseIcon />
         </div>
       </div>
       <div className="translate-y-1">
-        <CardList dateRange={dateRange} isSearchPage={true} />
+        <CardList
+          dateRange={dateRange}
+          isSearchPage={true}
+          keywordResult={keywordResult}
+          setKeywordResult={setKeywordResult}
+        />
       </div>
     </div>
   );

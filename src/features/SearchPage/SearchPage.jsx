@@ -10,6 +10,7 @@ import StepLabel from "@mui/material/StepLabel";
 import { useNavigate } from "react-router-dom";
 import useFestivalSearchStore from "../../store/festivalSearchStore";
 import useFestivalRegionStore from "../../store/festivalRegionStore";
+import { getKeywordSearchResults } from "../../network/FestivalApi";
 
 const steps = ["날짜", "지역", "키워드"];
 
@@ -18,17 +19,13 @@ const SearchPage = () => {
   const [skipped, setSkipped] = useState(new Set());
 
   const {
-    dateRange,
     setDateRange,
-    keyword,
-    setKeyword,
-    getFormattedDateRange,
     activeStep,
     setActiveStep,
+    setKeywordResult,
+    inputKeyword,
   } = useFestivalSearchStore();
-
-  const { setSelectedRegion, selectedRegion, regionList } =
-    useFestivalRegionStore();
+  const { setSelectedRegion } = useFestivalRegionStore();
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -51,19 +48,25 @@ const SearchPage = () => {
     });
   };
 
-  const handleSubmit = () => {
-    const finalKeyword = keyword || "default";
-    navigate(`/search/${finalKeyword}`, {
-      state: { dateRange, selectedRegion, keyword, activeStep },
-    });
+  const fetchKeyword = async (inputKeyword) => {
+    try {
+      const keywordResult = await getKeywordSearchResults(inputKeyword);
 
-    // console.log("검색하기:", {
-    //   dateRange,
-    //   selectedRegion,
-    //   regionList,
-    //   getFormattedDateRange,
-    //   keyword,
-    // });
+      setKeywordResult(keywordResult);
+    } catch (e) {
+      console.error("키워드 검색 실패", e);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (inputKeyword.trim()) {
+      try {
+        await fetchKeyword(inputKeyword);
+      } catch (e) {
+        console.error("키워드 검색 실패", e);
+      }
+    }
+    navigate("/searchResult");
   };
 
   return (
@@ -154,8 +157,8 @@ const SearchPage = () => {
         {activeStep === 2 && (
           <div className="flex flex-col pt-12">
             <KeywordSearch
-              onSelect={(value) => {
-                setKeyword(value);
+              onChange={(value) => {
+                setKeywordResult(value);
               }}
             />
             <div className="w-full m-auto flex justify-between pb-24 px-4">
