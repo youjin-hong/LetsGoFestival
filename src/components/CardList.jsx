@@ -9,6 +9,7 @@ export default function CardList({
   clickWishIcon = false,
   dateRange,
   isSearchPage,
+  keywordResult,
 }) {
   const { festivalCards, setFestivalCards } = useFestivalCardStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
@@ -43,7 +44,13 @@ export default function CardList({
       const eventStartDate = card.eventstartdate;
       const eventEndDate = card.eventenddate;
 
-      if (dateRange) {
+      if (
+        dateRange &&
+        Array.isArray(dateRange) &&
+        dateRange.length === 2 &&
+        dateRange[0] instanceof Date &&
+        dateRange[1] instanceof Date
+      ) {
         const startDate = dateRange[0]
           .toISOString()
           .slice(0, 10)
@@ -72,6 +79,14 @@ export default function CardList({
       return true; // 기본적으로 모든 카드를 반환
     });
 
+    if (keywordResult && keywordResult.length > 0) {
+      filtered = filtered.filter((card) =>
+        keywordResult.some(
+          (keywordCard) => keywordCard.contentid === card.contentid
+        )
+      );
+    }
+
     if (clickWishIcon) {
       filtered = filtered.filter((card) => wishList[card.contentid]);
     }
@@ -87,7 +102,7 @@ export default function CardList({
 
   useEffect(() => {
     filterCards();
-  }, [festivalCards, selectFestivalStatus, wishList, dateRange]);
+  }, [festivalCards, selectFestivalStatus, wishList, dateRange, keywordResult]);
 
   const handleFestivalStatus = (status) => {
     if (selectFestivalStatus === status) {

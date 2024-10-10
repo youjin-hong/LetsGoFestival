@@ -1,34 +1,11 @@
-import { useState } from "react";
-import { getKeywordSearchResults } from "../../../network/FestivalApi";
+import useFestivalSearchStore from "../../../store/festivalSearchStore";
 
-export default function KeywordSearch({ onSelect }) {
-  const [keyword, setKeyword] = useState("");
-
-  const fetchKeyword = async (inputValue) => {
-    if (inputValue) {
-      try {
-        const keywordResult = await getKeywordSearchResults(inputValue);
-        return keywordResult;
-      } catch (e) {
-        console.error("축제정보 검색결과 데이터 불러오기 실패", e);
-      }
-    }
-  };
-
-  const handleInputKeyword = async (e) => {
-    const inputValue = e.target.value;
-    setKeyword(inputValue);
-
-    if (inputValue.length > 1) {
-      try {
-        const results = await fetchKeyword(inputValue);
-        onSelect && onSelect(results);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      onSelect && onSelect([]);
-    }
+export default function KeywordSearch({ onChange }) {
+  const { inputKeyword, setInputKeyword } = useFestivalSearchStore();
+  const handleInputKeyword = (e) => {
+    const newKeyword = e.target.value;
+    setInputKeyword(newKeyword);
+    onChange && onChange(newKeyword);
   };
 
   return (
@@ -39,7 +16,7 @@ export default function KeywordSearch({ onSelect }) {
         placeholder="ex) 강원 or 벚꽃"
         className="shadow-lg rounded-lg w-full py-5 px-3 flex items-center outline-iconActive"
         onChange={handleInputKeyword}
-        value={keyword}
+        value={inputKeyword}
       />
     </div>
   );

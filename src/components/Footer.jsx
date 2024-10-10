@@ -1,8 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { HomeIcon, MoveTopIcon, SearchIcon, WishIcon } from "./ui/icon";
+import useFestivalSearchStore from "../store/festivalSearchStore";
+import useFestivalRegionStore from "../store/festivalRegionStore";
 
 export default function Footer() {
   const location = useLocation();
+  const { setActiveStep, setDateRange, setKeywordResult, setInputKeyword } =
+    useFestivalSearchStore();
+  const { setSelectedRegion } = useFestivalRegionStore();
 
   const isWishPage = location.pathname === "/wish";
   const isHomePage = location.pathname === "/";
@@ -13,6 +18,14 @@ export default function Footer() {
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  const handleSearch = () => {
+    setActiveStep(0);
+    setDateRange([new Date(), new Date()]);
+    setKeywordResult([]);
+    setInputKeyword("");
+    setSelectedRegion("all");
   };
 
   return (
@@ -39,6 +52,7 @@ export default function Footer() {
           className={`text-beforeHover hover:text-afterHover ${
             isSearchPage ? "text-activeIcon" : ""
           }`}
+          onClick={handleSearch}
         >
           <SearchIcon handleSearchIcon={() => {}} clickSearch={isSearchPage} />
           <p
