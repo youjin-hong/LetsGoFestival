@@ -35,6 +35,12 @@ export default function CardList({
     const today = new Date();
     const todayString = today.toISOString().slice(0, 10).replace(/-/g, "");
 
+    if (keywordResult && keywordResult.length > 0) {
+      // keywordResult가 있을 경우 바로 렌더링
+      setFilteredCards(keywordResult);
+      return;
+    }
+
     if (!Array.isArray(festivalCards)) {
       setFilteredCards([]);
       return;
@@ -78,14 +84,6 @@ export default function CardList({
       }
       return true; // 기본적으로 모든 카드를 반환
     });
-
-    if (keywordResult && keywordResult.length > 0) {
-      filtered = filtered.filter((card) =>
-        keywordResult.some(
-          (keywordCard) => keywordCard.contentid === card.contentid
-        )
-      );
-    }
 
     if (clickWishIcon) {
       filtered = filtered.filter((card) => wishList[card.contentid]);
