@@ -14,7 +14,7 @@ export default function KeywordSearch({ onChange }) {
       <input
         type="text"
         placeholder="ex) 강원 or 벚꽃"
-        className="shadow-lg rounded-lg w-full py-5 px-3 flex items-center outline-iconActive"
+        className="shadow-lg rounded-lg w-full py-5 px-3 flex items-center outline-iconActive text-black"
         onChange={handleInputKeyword}
         value={inputKeyword}
       />
