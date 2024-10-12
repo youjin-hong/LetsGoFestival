@@ -71,7 +71,7 @@ export default function SearchResultPage() {
   };
 
   return (
-    <div className="flex flex-col gap-2 mt-24">
+    <div className="flex flex-col gap-2 mt-16 pt-8">
       <div className="flex justify-between gap-2 z-[900]">
         <div
           onClick={backToCalender}
