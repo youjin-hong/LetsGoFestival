@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { getFestivalCards } from "../network/FestivalApi";
 import useFestivalCardStore from "../store/festivalCardStore";
 import useFestivalRegionStore from "../store/festivalRegionStore";
@@ -16,6 +17,9 @@ export default function CardList({
   const [filteredCards, setFilteredCards] = useState([]);
   const { selectedRegion } = useFestivalRegionStore();
   const { wishList } = useFestivalWishStore();
+
+  // 무한스크롤 객체 생성
+  const [ref, inView] = useInView();
 
   const fetchFestivalCards = async (areaCode) => {
     try {
@@ -150,6 +154,7 @@ export default function CardList({
         {filteredCards.map((card, index) => (
           <Card key={index} card={card} />
         ))}
+        <div ref={ref}>안뇽</div>
       </div>
     </>
   );
