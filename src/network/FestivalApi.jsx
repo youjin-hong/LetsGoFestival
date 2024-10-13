@@ -44,12 +44,14 @@ export const getRegion = async () => {
 };
 
 // 홈페이지 축제 카드리스트 불러오기
-export const getFestivalCards = async (areaCode) => {
+export const getFestivalCards = async (areaCode, pageNo) => {
   const response = await festivalAxiosInstance.get(
     `searchFestival1?serviceKey=${
       import.meta.env.VITE_APP_FESTIVAL_API_KEY
-    }&numOfRows=16&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101&areaCode=${areaCode}`
+    }&numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101&areaCode=${areaCode}`
   );
+
+  console.log(response.response.body);
 
   return response.response.body.items.item;
 };
