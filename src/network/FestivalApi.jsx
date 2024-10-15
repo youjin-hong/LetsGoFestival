@@ -53,7 +53,7 @@ export const getFestivalCards = async (areaCode, pageNo) => {
 
   console.log(response.response.body);
 
-  return response.response.body.items.item;
+  return response.response.body;
 };
 
 // 디테일페이지 상세설명 정보 불러오기

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getFestivalCards } from "../network/FestivalApi";
 import useFestivalCardStore from "../store/festivalCardStore";
 import useFestivalRegionStore from "../store/festivalRegionStore";
 import Card from "./Card";
 import { useFestivalWishStore } from "../store/festivalWishStore";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function CardList({
   clickWishIcon = false,
@@ -18,22 +19,47 @@ export default function CardList({
   const { selectedRegion } = useFestivalRegionStore();
   const { wishList } = useFestivalWishStore();
 
-  // 무한스크롤 객체 생성
-  const [ref, inView] = useInView();
-
-  const fetchFestivalCards = async (areaCode) => {
+  const fetchFestivalCards = async (areaCode, pageNo) => {
     try {
       const cards =
         areaCode === "all"
-          ? await getFestivalCards("")
-          : await getFestivalCards(areaCode);
+          ? await getFestivalCards("", pageNo)
+          : await getFestivalCards(areaCode, pageNo);
 
-      setFestivalCards(cards);
-      setFilteredCards(cards);
+      return cards;
     } catch (e) {
       console.error("축제정보 데이터 불러오기 실패", e);
     }
   };
+
+  const useFestivalInfiniteCards = (selectedRegion) => {
+    return useInfiniteQuery({
+      queryKey: ["festivals", selectedRegion],
+      queryFn: ({ pageParam }) => {
+        return fetchFestivalCards(selectedRegion, pageParam);
+      },
+      getNextPageParam: (lastPage) => {
+        const totalPages = Math.ceil(lastPage.totalCount / lastPage.numOfRows);
+        if (selectedRegion && lastPage.pageNo < totalPages) {
+          return lastPage.pageNo + 1;
+        }
+        return undefined;
+      },
+      initialPageParam: 1,
+    });
+  };
+
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useFestivalInfiniteCards(selectedRegion);
+
+  // 무한스크롤 객체 생성
+  const { ref, inView } = useInView();
 
   const filterCards = () => {
     const today = new Date();
@@ -45,12 +71,14 @@ export default function CardList({
       return;
     }
 
-    if (!Array.isArray(festivalCards)) {
+    if (!data) {
       setFilteredCards([]);
       return;
     }
 
-    let filtered = festivalCards.filter((card) => {
+    let allCards = data.pages.flatMap((page) => page.items.item);
+
+    let filtered = allCards.filter((card) => {
       const eventStartDate = card.eventstartdate;
       const eventEndDate = card.eventenddate;
 
@@ -97,14 +125,14 @@ export default function CardList({
   };
 
   useEffect(() => {
-    if (selectedRegion) {
-      fetchFestivalCards(selectedRegion);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
-  }, [selectedRegion]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   useEffect(() => {
     filterCards();
-  }, [festivalCards, selectFestivalStatus, wishList, dateRange, keywordResult]);
+  }, [data, selectFestivalStatus, wishList, dateRange, keywordResult]);
 
   const handleFestivalStatus = (status) => {
     if (selectFestivalStatus === status) {
@@ -113,6 +141,9 @@ export default function CardList({
       setSelectFestivalStatus(status);
     }
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
     <>
@@ -150,11 +181,17 @@ export default function CardList({
           </li>
         </ul>
       )}
-      <div className="flex flex-wrap justify-evenly pt-4 pb-20 w-full">
+      <div className="flex flex-wrap justify-evenly pt-4 pb-4 w-full">
         {filteredCards.map((card, index) => (
-          <Card key={index} card={card} />
+          <Card key={`${card.contentid}-${index}`} card={card} />
         ))}
-        <div ref={ref}>안뇽</div>
+      </div>
+      <div ref={ref} className="h-20 mb-24 text-center">
+        {isFetchingNextPage
+          ? "Loading more..."
+          : hasNextPage
+          ? "Load More"
+          : "No more results"}
       </div>
     </>
   );
