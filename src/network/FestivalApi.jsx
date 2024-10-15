@@ -51,8 +51,6 @@ export const getFestivalCards = async (areaCode, pageNo) => {
     }&numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&eventStartDate=20240101&areaCode=${areaCode}`
   );
 
-  console.log(response.response.body);
-
   return response.response.body;
 };
 

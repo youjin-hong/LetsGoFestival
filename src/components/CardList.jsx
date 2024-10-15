@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getFestivalCards } from "../network/FestivalApi";
-import useFestivalCardStore from "../store/festivalCardStore";
 import useFestivalRegionStore from "../store/festivalRegionStore";
 import Card from "./Card";
 import { useFestivalWishStore } from "../store/festivalWishStore";
@@ -13,7 +12,6 @@ export default function CardList({
   isSearchPage,
   keywordResult,
 }) {
-  const { festivalCards, setFestivalCards } = useFestivalCardStore();
   const [selectFestivalStatus, setSelectFestivalStatus] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
   const { selectedRegion } = useFestivalRegionStore();
@@ -125,10 +123,22 @@ export default function CardList({
   };
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
+    // 카드 갯수가 10개 이하일 때는 무한 스크롤이 작동하지 않도록 함
+    if (
+      inView &&
+      hasNextPage &&
+      !isFetchingNextPage &&
+      filteredCards.length > 9
+    ) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [
+    inView,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    filteredCards.length,
+  ]);
 
   useEffect(() => {
     filterCards();
@@ -186,12 +196,12 @@ export default function CardList({
           <Card key={`${card.contentid}-${index}`} card={card} />
         ))}
       </div>
-      <div ref={ref} className="h-20 mb-24 text-center">
+      <div ref={ref} className="h-20 pb-24 text-center">
         {isFetchingNextPage
           ? "Loading more..."
-          : hasNextPage
+          : hasNextPage && filteredCards.length > 9
           ? "Load More"
-          : "No more results"}
+          : ""}
       </div>
     </>
   );
