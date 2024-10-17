@@ -110,7 +110,11 @@ export default function DetailPage() {
         <div className="w-full mb-10">
           <h2 className="text-start font-bold pb-3 cursor-default">주변정보</h2>
           <div className="h-[253px] relative">
-            <KakaoMapApi latitude={card.mapy} longitude={card.mapx} />
+            <KakaoMapApi
+              latitude={card.mapy}
+              longitude={card.mapx}
+              card={card}
+            />
             <ul>
               <li
                 id="FD6"

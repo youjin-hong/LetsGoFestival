@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function KakaoMapApi({ latitude, longitude }) {
+export default function KakaoMapApi({ latitude, longitude, card }) {
   useEffect(() => {
     const { kakao } = window;
     if (!kakao) return;
@@ -23,7 +23,15 @@ export default function KakaoMapApi({ latitude, longitude }) {
 
     // 축제 마커를 지도 위에 표시
     festivalMarker.setMap(map);
-  }, [latitude, longitude]);
+
+    let infoWindow = new kakao.maps.InfoWindow({
+      content: `<div style="padding: 2px; font-size: 14px; width: 205px; text-align: center;">${card.title}</div>`,
+      removable: true,
+    });
+    kakao.maps.event.addListener(festivalMarker, "click", function () {
+      infoWindow.open(map, festivalMarker);
+    });
+  }, [latitude, longitude, card.title]);
 
   return (
     <>
