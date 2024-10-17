@@ -153,7 +153,7 @@ export default function CardList({
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  if (error) return <div>오류 발생: {error.message}</div>;
 
   return (
     <>
