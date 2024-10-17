@@ -25,7 +25,7 @@ export default function KakaoMapApi({ latitude, longitude, card }) {
     festivalMarker.setMap(map);
 
     let infoWindow = new kakao.maps.InfoWindow({
-      content: `<div style="padding: 2px; font-size: 14px; width: 205px; text-align: center;">${card.title}</div>`,
+      content: `<div style="padding: 2px; font-size: 14px; width: 205px; text-align: center;">${card.title}<br><a href="https://map.kakao.com/link/map/${card.title},${latitude},${longitude}" style="color:blue" target="_blank">큰지도보기</a> </div>`,
       removable: true,
     });
     kakao.maps.event.addListener(festivalMarker, "click", function () {
