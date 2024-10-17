@@ -13,6 +13,8 @@ import { getFestivalOverView } from "../../network/FestivalApi";
 import KakaoMapApi from "../../network/KakaoMapApi";
 import useFestivalDetailPageStore from "../../store/festivalDetailPageStore";
 import { useFestivalWishStore } from "../../store/festivalWishStore";
+import CafeCard from "./_components/CafeCard";
+import RestaurantCard from "./_components/RestaurantCard";
 
 export default function DetailPage() {
   const location = useLocation();
@@ -36,15 +38,21 @@ export default function DetailPage() {
     }
   };
 
-  const handleCafeBtn = () => {
-    setCategory("cafe");
+  const handleAround = (e) => {
+    // setCategory("cafe");
+    console.log("클릭", e.target.id);
+
+    if (category === e.target.id) {
+      setCategory("");
+    } else {
+      setCategory(e.target.id);
+    }
   };
-  const handleRestaurantBtn = () => {
-    setCategory("restaurant");
-  };
+
   const handleWishIcon = () => {
     toggleWish(card.contentid);
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchFestivalOverview();
@@ -118,18 +126,18 @@ export default function DetailPage() {
             <ul>
               <li
                 id="FD6"
-                onClick={handleRestaurantBtn}
+                onClick={handleAround}
                 className={`z-[100] absolute top-2 right-3 text-[12px] shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 flex justify-center items-center cursor-pointer ${
-                  category === "restaurant" ? "bg-[#F7DE00]" : "bg-white"
+                  category === "FD6" ? "bg-[#F7DE00]" : "bg-white"
                 }`}
               >
                 음식점
               </li>
               <li
                 id="CE7"
-                onClick={handleCafeBtn}
-                className={`z-[100] absolute top-11 right-3 text-[12px] bg-white shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 flex justify-center items-center cursor-pointer ${
-                  category === "cafe" ? "bg-[#F7DE00]" : "bg-white"
+                onClick={handleAround}
+                className={`z-[100] absolute top-11 right-3 text-[12px] shadow-bottomShadow w-14 h-6 rounded-lg dark:text-black hover:bg-[#F7DE00] transition duration-200 flex justify-center items-center cursor-pointer ${
+                  category === "CE7" ? "bg-[#F7DE00]" : "bg-white"
                 }`}
               >
                 카페
@@ -139,45 +147,24 @@ export default function DetailPage() {
         </div>
         <div className="w-full mb-24">
           <h2 className="font-bold text-start pb-3.5 cursor-default">
-            주변 ({category === "cafe" ? "카페" : "음식점"}) 검색 결과
+            주변 ({category === "CE7" ? "카페" : "음식점"}) 검색 결과
           </h2>
           <div className="grid grid-cols-2 grid-rows-2 gap-2.5">
-            <div className="flex flex-col shadow-bottomShadow rounded-lg w-[120px] p-2 gap-0.5 cursor-pointer">
-              <div className="flex justify-evenly items-center">
-                <CafeIcon />
-                <p className="text-[12px] font-bold">카페이름</p>
-              </div>
-              <p className="text-center text-[10px] text-subText">
-                축제로부터 ~km
-              </p>
-            </div>
-            <div className="flex flex-col shadow-bottomShadow rounded-lg w-[120px] p-2 gap-0.5 cursor-pointer">
-              <div className="flex justify-evenly items-center">
-                <CafeIcon />
-                <p className="text-[12px] font-bold">카페이름</p>
-              </div>
-              <p className="text-center text-[10px] text-subText">
-                축제로부터 ~km
-              </p>
-            </div>
-            <div className="flex flex-col shadow-bottomShadow rounded-lg w-[120px] p-2 gap-0.5 cursor-pointer">
-              <div className="flex justify-evenly items-center">
-                <CafeIcon />
-                <p className="text-[12px] font-bold">카페이름</p>
-              </div>
-              <p className="text-center text-[10px] text-subText">
-                축제로부터 ~km
-              </p>
-            </div>
-            <div className="flex flex-col shadow-bottomShadow rounded-lg w-[120px] p-2 gap-0.5 cursor-pointer">
-              <div className="flex justify-evenly items-center">
-                <CafeIcon />
-                <p className="text-[12px] font-bold">카페이름</p>
-              </div>
-              <p className="text-center text-[10px] text-subText">
-                축제로부터 ~km
-              </p>
-            </div>
+            {category === "CE7" ? (
+              <>
+                <CafeCard />
+                <CafeCard />
+                <CafeCard />
+                <CafeCard />
+              </>
+            ) : (
+              <>
+                <RestaurantCard />
+                <RestaurantCard />
+                <RestaurantCard />
+                <RestaurantCard />
+              </>
+            )}
           </div>
         </div>
       </section>
