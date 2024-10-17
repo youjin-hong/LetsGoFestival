@@ -24,6 +24,7 @@ export default function KakaoMapApi({ latitude, longitude, card }) {
     // 축제 마커를 지도 위에 표시
     festivalMarker.setMap(map);
 
+    // 마커 클릭하면 해당 축제 이름, 길찾기 기능 노출하기
     let infoWindow = new kakao.maps.InfoWindow({
       content: `<div style="padding: 2px; font-size: 14px; width: 205px; text-align: center;">${card.title}<br><a href="https://map.kakao.com/link/map/${card.title},${latitude},${longitude}" style="color:blue" target="_blank">큰지도보기</a> </div>`,
       removable: true,
