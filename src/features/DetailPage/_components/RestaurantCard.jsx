@@ -1,13 +1,24 @@
 import { RestaurantIcon } from "../../../components/ui/icon";
 
-export default function RestaurantCard() {
+export default function RestaurantCard({ place }) {
+  const handleCardClick = () => {
+    window.open(`https://map.kakao.com/link/to/${place.id}`, "_blank");
+  };
   return (
-    <div className="flex flex-col shadow-bottomShadow rounded-lg w-[120px] p-2 gap-0.5 cursor-pointer">
-      <div className="flex justify-evenly items-center">
+    <div
+      className="flex flex-col  justify-around shadow-bottomShadow rounded-lg w-[130px] p-2 cursor-pointer"
+      onClick={handleCardClick}
+    >
+      <div className="flex gap-2 justify-center items-center">
         <RestaurantIcon />
-        <p className="text-[12px] font-bold">식당이름</p>
+        <p className="text-[12px] font-bold">{place.place_name}</p>
       </div>
-      <p className="text-center text-[10px] text-subText">축제로부터 ~km</p>
+      <div className="flex flex-col">
+        <span className=" text-[10px] text-subText">
+          축제로부터 {place.distance}m
+        </span>
+        <span className="text-[10px] text-blue-500">길찾기</span>
+      </div>
     </div>
   );
 }

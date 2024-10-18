@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  CafeIcon,
   CalendarIcon,
   CallIcon,
   FestivalState,
@@ -24,6 +23,7 @@ export default function DetailPage() {
   const overview = useFestivalDetailPageStore((state) => state.overview);
   const { category, setCategory } = useFestivalDetailPageStore();
   const { wishList, toggleWish } = useFestivalWishStore();
+  const [nearByPlaces, setNearByPlaces] = useState([]);
 
   const fetchFestivalOverview = async () => {
     if (card) {
@@ -39,9 +39,6 @@ export default function DetailPage() {
   };
 
   const handleAround = (e) => {
-    // setCategory("cafe");
-    console.log("클릭", e.target.id);
-
     if (category === e.target.id) {
       setCategory("");
     } else {
@@ -122,6 +119,8 @@ export default function DetailPage() {
               latitude={card.mapy}
               longitude={card.mapx}
               card={card}
+              category={category}
+              setNearByPlaces={setNearByPlaces}
             />
             <ul>
               <li
@@ -150,20 +149,12 @@ export default function DetailPage() {
             주변 ({category === "CE7" ? "카페" : "음식점"}) 검색 결과
           </h2>
           <div className="grid grid-cols-2 grid-rows-2 gap-2.5">
-            {category === "CE7" ? (
-              <>
-                <CafeCard />
-                <CafeCard />
-                <CafeCard />
-                <CafeCard />
-              </>
-            ) : (
-              <>
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-              </>
+            {nearByPlaces.map((place, index) =>
+              category === "CE7" ? (
+                <CafeCard key={index} place={place} />
+              ) : (
+                <RestaurantCard key={index} place={place} />
+              )
             )}
           </div>
         </div>
