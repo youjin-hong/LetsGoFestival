@@ -9,7 +9,7 @@ export default function RestaurantCard({ place }) {
       className="flex flex-col  justify-around shadow-bottomShadow rounded-lg w-[130px] p-2 cursor-pointer"
       onClick={handleCardClick}
     >
-      <div className="flex gap-2 justify-center items-center">
+      <div className="flex gap-2 justify-start items-center">
         <RestaurantIcon />
         <p className="text-[12px] font-bold">{place.place_name}</p>
       </div>

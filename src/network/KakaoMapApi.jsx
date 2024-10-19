@@ -27,7 +27,6 @@ export default function KakaoMapApi({
       position: festivalMarkerPosition,
     });
 
-    // 축제 마커를 지도 위에 표시
     festivalMarker.setMap(map);
 
     // 마커 클릭하면 해당 축제 이름, 길찾기 기능 노출하기
@@ -39,7 +38,6 @@ export default function KakaoMapApi({
       infoWindow.open(map, festivalMarker);
     });
 
-    // 카테고리별 검색
     if (category) {
       const ps = new kakao.maps.services.Places(map);
       ps.categorySearch(
@@ -62,7 +60,6 @@ export default function KakaoMapApi({
       );
     }
 
-    // 마커 표시 함수
     function displayMarker(place) {
       const marker = new kakao.maps.Marker({
         map: map,
