@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const festivalAxiosInstance = axios.create({
-  baseURL: "http://apis.data.go.kr/B551011/KorService1/",
+  baseURL: "https://apis.data.go.kr/B551011/KorService1/",
 });
 
 // 요청 인터셉터
