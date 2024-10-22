@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import HomePage from "./features/HomePage/HomePage";
 import SearchPage from "./features/SearchPage/SearchPage";
@@ -7,7 +7,7 @@ import WishListPage from "./features/WishListPage/WishListPage";
 import NotFoundPage from "./features/NotFoundPage/NotFoundPage";
 import SearchResultPage from "./features/SearchPage/_components/SearchResultPage";
 
-export const router = createHashRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
@@ -21,3 +21,7 @@ export const router = createHashRouter([
     ],
   },
 ]);
+
+export default function Router() {
+  return <RouterProvider router={router} />;
+}

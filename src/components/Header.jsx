@@ -64,7 +64,6 @@ export default function Header() {
   const handleRegionClick = async (code) => {
     setSelectedRegion(code);
   };
-
   return (
     <>
       {location.pathname === "/search" ||
