@@ -7,6 +7,8 @@ import useFestivalRegionStore from "../store/festivalRegionStore";
 
 import { CloseIcon, DarkModeIcon } from "./ui/icon";
 
+import logo from "../assets/images/logo.svg";
+
 export default function Header() {
   const location = useLocation();
   const scrollRef = useRef(null);
@@ -75,7 +77,7 @@ export default function Header() {
           <div className="flex justify-between mb-6">
             <Link to="/" className="cursor-pointer mx-2">
               <img
-                src="../assets/images/logo.svg"
+                src={logo}
                 alt="축제7ㅏ자 로고"
                 className="w-full object-cover"
               />
