@@ -14,6 +14,7 @@ import useFestivalDetailPageStore from "../../store/festivalDetailPageStore";
 import { useFestivalWishStore } from "../../store/festivalWishStore";
 import CafeCard from "./_components/CafeCard";
 import RestaurantCard from "./_components/RestaurantCard";
+import festivalNullImg from "../../assets/images/festivalNullImg.png";
 
 export default function DetailPage() {
   const location = useLocation();
@@ -64,6 +65,11 @@ export default function DetailPage() {
     return <div>카드 정보를 불러오는 중입니다...</div>;
   }
 
+  const extractImageUrl = (url) => {
+    const match = url.match(/https?:\/\/[^\s",]+/);
+    return match ? match[0] : festivalNullImg;
+  };
+
   return (
     <div className="pt-24 pb-8 flex flex-col items-center">
       <div className="flex justify-between w-full p-4">
@@ -83,7 +89,7 @@ export default function DetailPage() {
           </div>
           <div className="w-full h-full">
             <img
-              src={card.firstimage}
+              src={extractImageUrl(card.firstimage)}
               alt="축제이미지"
               className="w-full h-full object-cover rounded-lg cursor-default"
             />
