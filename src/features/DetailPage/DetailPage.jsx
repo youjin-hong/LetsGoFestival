@@ -81,7 +81,7 @@ export default function DetailPage() {
               handleWishIcon={handleWishIcon}
             />
           </div>
-          <div className="w-full h-56">
+          <div className="w-full h-full">
             <img
               src={card.firstimage}
               alt="축제이미지"

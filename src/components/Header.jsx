@@ -75,7 +75,7 @@ export default function Header() {
           <div className="flex justify-between mb-6">
             <Link to="/" className="cursor-pointer mx-2">
               <img
-                src="/logo.svg"
+                src="../assets/images/logo.svg"
                 alt="축제7ㅏ자 로고"
                 className="w-full object-cover"
               />

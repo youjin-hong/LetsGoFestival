@@ -1,12 +1,7 @@
 import axios from "axios";
 
-// CORS 우회 프록시 URL 설정
-const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-const apiBaseUrl = "http://apis.data.go.kr/B551011/KorService1/";
-
 const festivalAxiosInstance = axios.create({
-  // baseURL: "https://apis.data.go.kr/B551011/KorService1/",
-  baseURL: proxyUrl + apiBaseUrl, // 프록시와 API URL 결합
+  baseURL: `https://apis.data.go.kr/B551011/KorService1/`,
 });
 
 // 요청 인터셉터
