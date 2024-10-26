@@ -7,7 +7,7 @@ export default function CafeCard({ place }) {
 
   return (
     <div
-      className="flex flex-col  justify-around shadow-bottomShadow rounded-lg w-[130px] p-2 cursor-pointer"
+      className="flex flex-col  justify-around shadow-bottomShadow rounded-lg w-[150px] p-2 cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex gap-2 justify-start items-center w-full">
