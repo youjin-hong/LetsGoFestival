@@ -8,4 +8,9 @@ export default defineConfig({
   server: {
     historyApiFallback: true,
   },
+  define: {
+    "process.env.VITE_APP_KAKAO_API_KEY": JSON.stringify(
+      import.meta.VITE_APP_KAKAO_API_KEY
+    ),
+  },
 });
