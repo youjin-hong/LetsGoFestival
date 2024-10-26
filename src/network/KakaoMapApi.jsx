@@ -8,14 +8,6 @@ export default function KakaoMapApi({
   setNearByPlaces,
 }) {
   useEffect(() => {
-    // 카카오맵 초기화 전에 쿠키 정책 설정
-    if (typeof window !== "undefined") {
-      window.kakao = window.kakao || {};
-      window.kakao.maps = window.kakao.maps || {};
-      window.kakao.maps.SameSite = "None"; // 추가
-      window.kakao.maps.Secure = true; // 추가
-    }
-
     const loadKakaoMap = () => {
       // 이미 로드된 스크립트가 있는지 확인
       if (
@@ -31,8 +23,6 @@ export default function KakaoMapApi({
       }&libraries=services,clusterer,drawing&autoload=false`;
       script.async = true;
 
-      // 쿠키 관련 설정 추가
-      script.crossOrigin = "anonymous";
       script.onload = () => {
         // 스크립트 로드 후 kakao.maps SDK 초기화
         window.kakao.maps.load(() => {
