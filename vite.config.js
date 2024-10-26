@@ -7,6 +7,9 @@ export default defineConfig({
   base: "/LetsGoFestival/",
   server: {
     historyApiFallback: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
   define: {
     "process.env.VITE_APP_KAKAO_API_KEY": JSON.stringify(
