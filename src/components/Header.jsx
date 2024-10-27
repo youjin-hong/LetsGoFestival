@@ -40,6 +40,8 @@ export default function Header() {
   }, [isDarkMode]);
 
   // useRef로 헤더 슬라이드 구현
+
+  // TODO: 터치 이벤트 추가하여 헤더 지역 리스트 슬라이드 구현
   const handleRegionNav = (e) => {
     e.preventDefault();
     const startX = e.pageX - scrollRef.current.offsetLeft;
