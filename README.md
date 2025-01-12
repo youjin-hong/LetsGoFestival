@@ -126,7 +126,9 @@ src
   <summary>tailwind-css 설치</summary>
     <div markdown="1">
     <ul>
-      <li>작성 예정</li>
+      <li>이번에 스스로 tailwind를 세팅하여 작업을 해보는 기회를 갖게 되었다. 전에는 세팅이 돼있는 상태에서 스타일 작업만 하면 돼서 너무 편했는데 패키지를 까는 것부터가 고역이었다. 
+      // 어떻게 했더라 코드 보고 다시 회고하자
+      </li>
       <li></li>
     </ul>
   </div>
